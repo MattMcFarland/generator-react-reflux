@@ -1,6 +1,8 @@
 ## React + Reflux for Enterprise.
 
 
+> This is a work in progress and is not functional... like at all.
+
 ### Installation:
 
 ```
@@ -82,3 +84,16 @@ Creates boilerplate for a webapi
 yo rux:webapi <uri> <name>
 --> GET uri, PUT uri, POST uri, PATCH uri, DELETE uri
 ```
+
+
+####
+
+Guides:
+
+https://ochronus.com/react-reflux-example/
+
+http://yeoman.io/authoring/index.html
+
+https://github.com/SBoudrias/ast-query
+
+https://github.com/backbone-boilerplate/generator-bbb/blob/master/lib/generators/app/index.js#L114
