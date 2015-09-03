@@ -4,13 +4,13 @@
   "description": "A Yeoman Generator for facebook's React framework and flux architecture using reflux.",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "mattmcfarland/generator-react-reflux",
+  "repository": "mattmcfarland/generator-rux",
   "author": {
     "name": "Matt McFarland",
     "email": "contact@mattmcfarland.com"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
     "test": "mocha"
@@ -32,6 +32,8 @@
   "dependencies": {
     "chalk": "~1.0.0",
     "lodash": "~3.8.0",
+    "shelljs": "^0.5.3",
+    "username": "^1.0.0",
     "yeoman-generator": "~0.19.2",
     "yosay": "~1.0.3"
   },
