@@ -3,42 +3,10 @@ var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
 
-var buildTools = ['gulp', 'grunt'];
 
-var ReactRefluxGenerator = yeoman.generators.Base.extend({
+var RuxGenerator = yeoman.generators.Base.extend({
   initializing: function () {
     this.pkg = require('../package.json');
-
-    this.option('modernizr', {
-      desc: 'Use Modernizr',
-      defaults: false
-    });
-
-    this.option('coffee-script', {
-      desc: 'Use CoffeeScript',
-      defaults: false
-    });
-
-    this.option('compass', {
-      desc: 'Use Sass with Compass',
-      defaults: false
-    });
-
-    this.option('jest', {
-      desc: 'Use jest tests',
-      defaults: false
-    });
-
-    this.option('build-tool', {
-      desc: 'Select the build tool',
-      type: String,
-      defaults: 'gulp'
-    });
-
-    this.option('skip-install', {
-      desc: 'Skip the bower and node installations',
-      defaults: false
-    });
 
     this.argument('appName', {
       type: String,
@@ -51,10 +19,10 @@ var ReactRefluxGenerator = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the excellent React Reflux generator!'
+      'Welcome to Rux, an opinionated reflux/react generator for enterprise applications!'
     ));
 
-    this.log(chalk.magenta('Out of the box I include ReactJS, React-Router, ReFlux, jQuery.'));
+    this.log(chalk.magenta('Out of the box I include ReactJS, React-Router, ReFlux.'));
 
     var prompts = [{
       name: 'projectName',
@@ -79,50 +47,9 @@ var ReactRefluxGenerator = yeoman.generators.Base.extend({
       name: 'license',
       message: 'What is the project\'s license?',
       default: 'MIT'
-    },
-    {
-      type: 'checkbox',
-      name: 'features',
-      message: 'What more would you like?',
-      choices: [
-      {
-        name: 'Modernizr',
-        value: 'includeModernizr',
-        checked: this.options.modernizr || false
-      }, {
-        name: 'CoffeeScript',
-        value: 'includeCoffee',
-        checked: this.options.coffee || false
-      }, {
-        name: 'Sass with Compass',
-        value: 'includeSass',
-        checked: this.options.compass || false
-      }, {
-        name: 'Jest tests',
-        value: 'includeJest',
-        checked: this.options.jest || false
-      }]
-    },
-    {
-      type: 'list',
-      name: 'buildTool',
-      message: 'Which build tool would you like?',
-      choices: [
-      {
-        name: 'Gulp',
-        value: 'gulp'
-      },
-      {
-        name: 'Grunt',
-        value: 'grunt'
-      }],
-      default: buildTools.indexOf(this.options['build-tool']) > -1 ? this.options['build-tool'] : 'gulp'
     }];
 
     this.prompt(prompts, function (props) {
-      var features = props.features;
-
-      function hasFeature(feat) { return features.indexOf(feat) !== -1; }
 
       this.projectName = props.projectName;
       this.desc = props.desc;
@@ -130,175 +57,121 @@ var ReactRefluxGenerator = yeoman.generators.Base.extend({
       this.version = props.version;
       this.license = props.license;
 
-      this.includeModernizr = hasFeature('includeModernizr');
-      this.includeCoffee = hasFeature('includeCoffee');
-      this.includeSass = hasFeature('includeSass');
-      this.includeJest = hasFeature('includeJest');
-
-      this.buildTool = props.buildTool;
-
       done();
     }.bind(this));
   },
 
   writing: {
 
-    commonFiles: function () {
+    publicFiles: function () {
       this.fs.copy(
-        this.templatePath('app/favicon.ico'),
-        this.destinationPath('app/favicon.ico')
-      );
-      this.fs.copy(
-        this.templatePath('app/robots.txt'),
-        this.destinationPath('app/robots.txt')
+        this.templatePath('public/404.html'),
+        this.destinationPath('public/404.html')
       );
       this.fs.copy(
-        this.templatePath('app/404.html'),
-        this.destinationPath('app/404.html')
+        this.templatePath('public/apple-touch-icon.png'),
+        this.destinationPath('public/apple-touch-icon.png')
       );
-
-      this.fs.copyTpl(
-        this.templatePath('app/index.html'),
-        this.destinationPath('app/index.html'),
-        this
+      this.fs.copy(
+        this.templatePath('public/browserconfig.xml'),
+        this.destinationPath('public/browserconfig.xml')
       );
-      this.fs.copyTpl(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json'),
-        this
+      this.fs.copy(
+        this.templatePath('public/crossdomain.xml'),
+        this.destinationPath('public/crossdomain.xml')
+      );
+      this.fs.copy(
+        this.templatePath('public/favicon.ico'),
+        this.destinationPath('public/favicon.ico')
       );
       this.fs.copyTpl(
-        this.templatePath('_README.md'),
-        this.destinationPath('README.md'),
+        this.templatePath('public/humans.txt'),
+        this.destinationPath('public/humans.txt'),
         this
       );
-
-      if (this.buildTool === 'gulp') {
-        this.fs.copyTpl(
-          this.templatePath('_package-gulp.json'),
-          this.destinationPath('package.json'),
-          this
-        );
-      } else if (this.buildTool === 'grunt') {
-        this.fs.copyTpl(
-          this.templatePath('_package-grunt.json'),
-          this.destinationPath('package.json'),
-          this
-        );
-      }
-    },
-
-    coffeeScript: function () {
-      if (this.includeCoffee) {
-        this.fs.copy(
-          this.templatePath('app/scripts/app.coffee'),
-          this.destinationPath('app/scripts/app.coffee')
-        );
-        this.fs.copy(
-          this.templatePath('app/scripts/router.cjsx'),
-          this.destinationPath('app/scripts/router.cjsx')
-        );
-        this.fs.copy(
-          this.templatePath('app/scripts/components/layout.cjsx'),
-          this.destinationPath('app/scripts/components/layout.cjsx')
-        );
-
-        this.fs.copyTpl(
-          this.templatePath('app/scripts/components/home.cjsx'),
-          this.destinationPath('app/scripts/components/home.cjsx'),
-          this
-        );
-
-        if (this.buildTool === 'gulp') {
-          this.fs.copyTpl(
-            this.templatePath('_gulpfile.coffee'),
-            this.destinationPath('gulpfile.coffee'),
-            this
-          );
-        } else if (this.buildTool === 'grunt') {
-          this.fs.copyTpl(
-            this.templatePath('_Gruntfile.coffee'),
-            this.destinationPath('Gruntfile.coffee'),
-            {
-              yeomanApp: '<%= yeoman.app %>',
-              yeomanDist: '<%= yeoman.dist %>',
-              includeSass: this.includeSass
-            }
-          );
-        }
-
-        if (this.includeJest) {
-          this.fs.copy(
-            this.templatePath('__tests__/home-test.cjsx'),
-            this.destinationPath('__tests__/home-test.cjsx')
-          );
-          this.fs.copy(
-            this.templatePath('preprocessor.js.coffee'),
-            this.destinationPath('preprocessor.js')
-          );
-        }
-      }
-    },
-
-    javaScript: function () {
-      if (!this.includeCoffee) {
-        this.fs.copy(
-          this.templatePath('app/scripts/app.js'),
-          this.destinationPath('app/scripts/app.js')
-        );
-        this.fs.copy(
-          this.templatePath('app/scripts/router.jsx'),
-          this.destinationPath('app/scripts/router.jsx')
-        );
-        this.fs.copy(
-          this.templatePath('app/scripts/components/layout.jsx'),
-          this.destinationPath('app/scripts/components/layout.jsx')
-        );
-
-        this.fs.copyTpl(
-          this.templatePath('app/scripts/components/home.jsx'),
-          this.destinationPath('app/scripts/components/home.jsx'),
-          this
-        );
-
-        if (this.buildTool === 'gulp') {
-          this.fs.copyTpl(
-            this.templatePath('_gulpfile.js'),
-            this.destinationPath('gulpfile.js'),
-            this
-          );
-        } else if (this.buildTool === 'grunt') {
-          this.fs.copyTpl(
-            this.templatePath('_Gruntfile.js'),
-            this.destinationPath('Gruntfile.js'),
-            {
-              yeomanApp: '<%= yeoman.app %>',
-              yeomanDist: '<%= yeoman.dist %>',
-              includeSass: this.includeSass
-            }
-          );
-        }
-
-        if (this.includeJest) {
-          this.fs.copy(
-            this.templatePath('__tests__/home-test.jsx'),
-            this.destinationPath('__tests__/home-test.jsx')
-          );
-          this.fs.copy(
-            this.templatePath('preprocessor.js'),
-            this.destinationPath('preprocessor.js')
-          );
-        }
-      }
-    },
-
-    styleSheets: function () {
       this.fs.copy(
-        this.templatePath('app/styles/main.' + (this.includeSass ? 'scss' : 'css')),
-        this.destinationPath('app/styles/main.' + (this.includeSass ? 'scss' : 'css'))
+        this.templatePath('public/index.html'),
+        this.destinationPath('public/index.html')
+      );
+      this.fs.copy(
+        this.templatePath('public/robots.txt'),
+        this.destinationPath('public/robots.txt')
+      );
+      this.fs.copy(
+        this.templatePath('public/tile.png'),
+        this.destinationPath('public/tile-wide.png')
       );
     },
-
+    sourceCore: function () {
+      this.fs.copy(
+        this.templatePath('src/main.js'),
+        this.destinationPath('src/main.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/lib/router.js'),
+        this.destinationPath('src/lib/router.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/globals/main.less'),
+        this.destinationPath('src/globals/main.less')
+      );
+      this.fs.copy(
+        this.templatePath('src/globals/normalize.less'),
+        this.destinationPath('src/globals/normalize.less')
+      );
+    },
+    sourceComponents: function () {
+      this.fs.copy(
+        this.templatePath('src/components/elements/README.md'),
+        this.destinationPath('src/components/elements/README.md')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/elements/thumbnail.js'),
+        this.destinationPath('src/components/elements/thumbnail.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/layouts/basic.js'),
+        this.destinationPath('src/components/layouts/basic.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/layouts/panel.js'),
+        this.destinationPath('src/components/layouts/panel.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/layouts/panel.less'),
+        this.destinationPath('src/components/layouts/panel.less')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/views/home.js'),
+        this.destinationPath('src/components/views/home.js')
+      );
+      this.fs.copy(
+        this.templatePath('src/components/views/home.less'),
+        this.destinationPath('src/components/views/home.less')
+      );
+    },
+    gulpTasks: function () {
+      this.fs.copy(
+        this.templatePath('tasks/bundle.js'),
+        this.destinationPath('tasks/bundle.js')
+      );
+      this.fs.copy(
+        this.templatePath('tasks/bundlemin.js'),
+        this.destinationPath('tasks/bundlemin.js')
+      );
+      this.fs.copy(
+        this.templatePath('tasks/lint'),
+        this.destinationPath('tasks/lint')
+      );
+      this.fs.copy(
+        this.templatePath('tasks/setWatcher'),
+        this.destinationPath('tasks/setWatcher')
+      );
+      this.fs.copy(
+        this.templatePath('tasks/gulpCompressionOptions'),
+        this.destinationPath('tasks/gulpCompressionOptions')
+      );
+    },
     projectfiles: function () {
       this.fs.copy(
         this.templatePath('gitignore'),
@@ -309,12 +182,18 @@ var ReactRefluxGenerator = yeoman.generators.Base.extend({
         this.destinationPath('.editorconfig')
       );
       this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
+        this.templatePath('eslintrc'),
+        this.destinationPath('.eslintrc')
       );
-      this.fs.copy(
-        this.templatePath('bowerrc'),
-        this.destinationPath('.bowerrc')
+      this.fs.copyTpl(
+        this.templatePath('_README.md'),
+        this.destinationPath('README.md'),
+        this
+      );
+      this.fs.copyTpl(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json'),
+        this
       );
     }
   },
@@ -324,4 +203,4 @@ var ReactRefluxGenerator = yeoman.generators.Base.extend({
   }
 });
 
-module.exports = ReactRefluxGenerator;
+module.exports = RuxGenerator;

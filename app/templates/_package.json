@@ -1,0 +1,51 @@
+{
+  "name": "<%= projectName %>",
+  "version": "<%= version %>",
+  "description": "<%= desc %>",
+  "author": "<%= author %>",
+  "license": "<%= license %>",
+  "private": true,
+  "browserify": {
+    "transform": [
+      "lessify",
+      "reactify"
+    ]
+  },
+   "devDependencies": {
+    "browserify": "^11.0.1",
+    "concat": "^1.0.0",
+    "eslint": "^1.0.0",
+    "eslint-plugin-react": "^3.2.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-help": "^1.6.0",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-less": "^3.0.3",
+    "gulp-logger": "0.0.2",
+    "gulp-markdox": "^0.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-showhelp": "^1.0.3",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "highlight.js": "^8.7.0",
+    "jest-cli": "^0.4.3",
+    "lessify": "^1.0.1",
+    "marked": "^0.3.5",
+    "moment": "^2.10.6",
+    "path": "^0.11.14",
+    "pygmentize-bundled": "^2.3.0",
+    "qwest": "^2.0.5",
+    "react": "^0.13.3",
+    "react-render-visualizer": "^0.2.2",
+    "react-styleguide-generator": "^1.1.4",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.3.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
