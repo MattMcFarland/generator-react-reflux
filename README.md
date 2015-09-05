@@ -1,14 +1,38 @@
-## React + Reflux for Enterprise.
+## An Intelligent Scaffolding tool using Yeoman, Browserify, React, and Reflux for Enterprise Application.
 
+Here's a scaffolding tool that will wire up your routers, stores, actions and components. 
 
-> This is a work in progress and is not functional... like at all.
+### What's inside?
+
+gulp
+bower
+browserify
+reactify
+lessify
+jest
+reactjs
+reflux
+react-router
+
 
 ### Installation:
 
+Get yeoman - http://yeoman.io
+``` 
+npm install yo -g
 ```
+If you have yeoman, get rux.
+```
+npm install generator-rux
+```
+
+### Scaffolding the Base
+```
+cd my-new-project
 yo rux
 ```
 
+Don't want bloat?  No problem, you can choose to install the sample app or not.
 
 #### Scaffolding Components
 
@@ -36,7 +60,7 @@ Create a layout and adds it to your router - Contains views and partials, may al
 yo rux:layout <name>
 ```
 
-####
+#### References
 
 Guides:
 
@@ -47,3 +71,8 @@ http://yeoman.io/authoring/index.html
 https://github.com/SBoudrias/ast-query
 
 https://github.com/backbone-boilerplate/generator-bbb/blob/master/lib/generators/app/index.js#L114
+
+#### Acknowledgements
+
+While this has been heavily refactored to the point of almost being completely re-written, it wouldn't be possible without
+the careful examination of generator-react-reflux by Tilen Faganel

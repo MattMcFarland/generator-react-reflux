@@ -83,6 +83,26 @@ module.exports = generators.NamedBase.extend({
         this
       );
 
+    },
+
+    addStore: function () {
+      if (this.type === "view") {
+        this.fs.copyTpl(
+          this.templatePath('store.js'),
+          this.destinationPath('src/store/' + this.name + '.Store.js'),
+          this
+        );
+      }
+    },
+
+    addActions: function () {
+      if (this.type === "view") {
+        this.fs.copyTpl(
+          this.templatePath('action.js'),
+          this.destinationPath('src/actions/' + this.name + 'Actions.js'),
+          this
+        );
+      }
     }
 
 

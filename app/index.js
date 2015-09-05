@@ -78,7 +78,7 @@ var RuxGenerator = yeoman.generators.Base.extend({
     {
       type: 'confirm',
       name: 'addDemoSection',
-      message: 'Include heavily commented sample components? (recommended)',
+      message: 'Include sample app? (recommended)',
       default: true
     }];
 
