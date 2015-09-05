@@ -1,9 +1,9 @@
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var yosay = require('yosay');
-var chalk = require('chalk');
-var shelljs = require('shelljs');
-var username = require('username');
+var path      = require('path');
+var yeoman    = require('yeoman-generator');
+var yosay     = require('yosay');
+var chalk     = require('chalk');
+var shelljs   = require('shelljs');
+var username  = require('username');
 
 
 var RuxGenerator = yeoman.generators.Base.extend({
@@ -29,11 +29,12 @@ var RuxGenerator = yeoman.generators.Base.extend({
   },
 
   prompting: function () {
-    var done = this.async();
+    var done = this.async(),
+      prompts, defaultDesc;
 
     this.gitInfo = {
       name: shelljs.exec('git config user.name', {silent: true}).output.replace(/\n/g, ''),
-      email: shelljs.exec('git config user.email', {silent: true}).output.replace(/\n/g, ''),
+      email: shelljs.exec('git config user.email', {silent: true}).output.replace(/\n/g, '')
     };
 
     // Have Yeoman greet the user.
@@ -41,55 +42,55 @@ var RuxGenerator = yeoman.generators.Base.extend({
       'Welcome to Rux, an opinionated reflux/react generator for enterprise applications!'
     ));
 
-    var defaultDesc = (this.appName || path.basename(path.resolve('.'))) + ' by ' + this.gitInfo.name;
+    defaultDesc = (this.appName || path.basename(path.resolve('.'))) + ' by ' + this.gitInfo.name;
 
     this.log(chalk.bold.cyan('Out of the box I include ReactJS, React-Router, ReFlux, and incredible tooling.'));
 
-    var prompts = [{
+    prompts = [{
       name: 'projectName',
       message: 'What is the project\'s name?',
       default: this.appName || path.basename(path.resolve('.'))
     },
-    {
-      name: 'author',
-      message: 'Who is the author?',
-      default: this.gitInfo.name || username.sync() || ''
-    },
-    {
-      name: 'email',
-      message: 'Please enter your email address?',
-      default: this.gitInfo.email
-    },
-    {
-      name: 'desc',
-      message: 'Please describe your project?',
-      default: defaultDesc
-    },
-    {
-      name: 'version',
-      message: 'What is the project\'s inital version?',
-      default: '0.0.0'
-    },
-    {
-      name: 'license',
-      message: 'What is the project\'s license?',
-      default: 'MIT'
-    },
-    {
-      type: 'confirm',
-      name: 'addDemoSection',
-      message: 'Include sample app? (recommended)',
-      default: true
-    }];
+      {
+        name: 'author',
+        message: 'Who is the author?',
+        default: this.gitInfo.name || username.sync() || ''
+      },
+      {
+        name: 'email',
+        message: 'Please enter your email address?',
+        default: this.gitInfo.email
+      },
+      {
+        name: 'desc',
+        message: 'Please describe your project?',
+        default: defaultDesc
+      },
+      {
+        name: 'version',
+        message: 'What is the project\'s inital version?',
+        default: '0.0.0'
+      },
+      {
+        name: 'license',
+        message: 'What is the project\'s license?',
+        default: 'MIT'
+      },
+      {
+        type: 'confirm',
+        name: 'addDemoSection',
+        message: 'Include sample app? (recommended)',
+        default: true
+      }];
 
     this.prompt(prompts, function (props) {
 
-      this.projectName = props.projectName;
-      this.desc = props.desc;
-      this.author = props.author;
-      this.email = props.email;
-      this.version = props.version;
-      this.license = props.license;
+      this.projectName    = props.projectName;
+      this.desc           = props.desc;
+      this.author         = props.author;
+      this.email          = props.email;
+      this.version        = props.version;
+      this.license        = props.license;
       this.addDemoSection = props.addDemoSection;
 
       done();
@@ -242,7 +243,7 @@ var RuxGenerator = yeoman.generators.Base.extend({
         this.destinationPath('.bowerrc'),
         this
       );
-    },
+    }
   },
 
   end: function () {

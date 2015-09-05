@@ -1,13 +1,15 @@
 /**
- * @module <%= module %><%= elementName %>
+ * @module <%= module %><%= name %>
  * @type <%= type %>
  * @see {@link https://facebook.github.io/react/docs/reusable-components.html React Docs: Re-usable components}
  */
 var React = require('react');
 
+require('./<%= name %>.less');
+
 module.exports = React.createClass({
   // The displayName string is used in debugging messages.
-  displayName: "<%= elementName %>",
+  displayName: "<%= name %>",
   /*
    * As your app grows it's helpful to ensure that your components are used correctly.
    * We do this by allowing you to specify propTypes. React.PropTypes exports a range of validators that

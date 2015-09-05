@@ -5,7 +5,7 @@ var data = {};
 module.exports = Reflux.createStore({
 
   init: function() {
-    console.log('<%= name + "Store") %> initialized');
+    console.log('<%= name %>Store initialized');
   }
 
 });

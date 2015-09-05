@@ -6,6 +6,8 @@
  */
 var React = require('react');
 
+require('./<%= name %>.less');
+
 // Each View is tied to a store, and actions for that store by default.
 var store = require('../../stores/<%= name %>Store');
 var actions = require('../../actions/<%= name %>Actions');
@@ -19,7 +21,7 @@ module.exports = React.createClass({
   //
   // Or usenNo mixin at all - https://github.com/reflux/refluxjs#react-component-example
   mixins: [Reflux.connect(store)],
-  displayName: "<%= elementName %>",
+  displayName: "<%= name %>",
   render: function() {
     return (
       <section>

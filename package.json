@@ -38,6 +38,9 @@
     "yosay": "~1.0.3"
   },
   "devDependencies": {
-    "mocha": "*"
+    "eslint-plugin-react": "^3.3.1",
+    "mocha": "*",
+    "react": "^0.13.3",
+    "reflux": "^0.2.12"
   }
 }

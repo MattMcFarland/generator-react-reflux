@@ -4,18 +4,21 @@ var generators = require('yeoman-generator'),
 module.exports = generators.NamedBase.extend({
 
   constructor: function () {
-    generators.NamedBase.apply(this, arguments);
+    generators.Base.apply(this, arguments);
+
+    this.argument('name', {
+      desc: "the name of the component to add.",
+      type: String,
+      optional: false,
+      required: true
+    });
 
     this.argument('type', {
       desc: "the type of react component: element, partial, layout, or view",
       type: String,
-      optional: true
-    });
-
-    this.argument('name', {
-      desc: "The name of the component.",
-      type: String,
-      required: true
+      optional: true,
+      required: false,
+      default: "view"
     });
 
   },
@@ -89,7 +92,7 @@ module.exports = generators.NamedBase.extend({
       if (this.type === "view") {
         this.fs.copyTpl(
           this.templatePath('store.js'),
-          this.destinationPath('src/store/' + this.name + '.Store.js'),
+          this.destinationPath('src/store/' + this.name + 'Store.js'),
           this
         );
       }
@@ -98,7 +101,7 @@ module.exports = generators.NamedBase.extend({
     addActions: function () {
       if (this.type === "view") {
         this.fs.copyTpl(
-          this.templatePath('action.js'),
+          this.templatePath('actions.js'),
           this.destinationPath('src/actions/' + this.name + 'Actions.js'),
           this
         );
