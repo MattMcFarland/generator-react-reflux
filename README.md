@@ -1,24 +1,24 @@
 ## An Intelligent Scaffolding tool using Yeoman, Browserify, React, and Reflux for Enterprise Application.
 
-Here's a scaffolding tool that will wire up your routers, stores, actions and components. 
+Here's a scaffolding tool that will wire up your routers, stores, actions and components.
 
 ### What's inside?
 
-gulp
-bower
-browserify
-reactify
-lessify
-jest
-reactjs
-reflux
-react-router
+- gulp
+- bower
+- browserify
+- reactify
+- lessify
+- jest
+- reactjs
+- reflux
+- react-router
 
 
 ### Installation:
 
 Get yeoman - http://yeoman.io
-``` 
+```
 npm install yo -g
 ```
 If you have yeoman, get rux.
@@ -26,7 +26,7 @@ If you have yeoman, get rux.
 npm install generator-rux
 ```
 
-### Scaffolding the Base
+### Scaffolding Base App
 ```
 cd my-new-project
 yo rux
@@ -38,27 +38,17 @@ Don't want bloat?  No problem, you can choose to install the sample app or not.
 
 Create an element - Something that shouldn't have nested children and inherits all of its props.  think icons, thumbnails, special elements, etc.
 
+##### yo rux:add <type> <name>
+
+parameters:
+
+|name|type|description|
+|type|string|"element", "partial", "view", or "layout"|
+|name|string|Name of the component
 ```
-yo rux:element <name>
+yo rux:add <type> <name>
 ```
 
-Create a partial - Something that may contain elements or may be simple, but has nested children, think navigation bars, headers, footers, etc.
-
-```
-yo rux:partial <name>
-```
-
-Create a view and adds it to your router - Contains the main content of the page.
-
-```
-yo rux:view <name>
-```
-
-Create a layout and adds it to your router - Contains views and partials, may also contain some state logic.
-
-```
-yo rux:layout <name>
-```
 
 #### References
 
